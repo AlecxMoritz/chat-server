@@ -2,6 +2,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../db').model('User');
 
 const validateSession = (req, res, next) => {
+    if(req.method === 'OPTIONS') {
+        return next();
+    }
+    
     const token = req.headers.authorization;
 
     if(token) {
