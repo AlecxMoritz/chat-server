@@ -20,12 +20,11 @@ router.post('/:id', (req, res) => {
 
 // R - by user/token - get all channels 'joined'
 router.get('/', (req, res) => {
+    console.log(req.user.id)
     UserChannel.findAll({
-        include : [{ model : Channels }]
-    }, {
         where : {
             UserId : req.user.id
-        }
+        }, include : [{ model : Channels }] 
     })
     .then(channels => res.status(200).json(channels))
     .catch(err => {

@@ -31,6 +31,16 @@ router.get('/', (req, res) => {
         });
 });
 
+// R - by token
+router.get('/mine', (req, res) => {
+    Channel.findAll({ where : { UserId : req.user.id }})
+    .then(channels => res.status(200).json(channels))
+    .catch(err => {
+        console.log(err.message);
+        res.status(500).json({ error : err.message });
+    });
+});
+
 // R - id
 router.get('/:id', (req, res) => {
     Channel.findOne({ where : { id : req.params.id }})
